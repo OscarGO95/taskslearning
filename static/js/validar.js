@@ -100,11 +100,11 @@ function validatefieldsSelect(form) {
                     sout = "No ha seleccionado una asignatura";
                     break;
 
-                case 'Seleccione un tema':
+                case 'Seleccione un Contenido':
                     sout = "No ha seleccionado una Contenido";
                     break;
 
-                case 'Seleccione un logro':
+                case 'Seleccione un Tema':
                     sout = "No ha seleccionado un Temas para la tarea";
                     break;
 

@@ -73,7 +73,7 @@ function cargarMateriasxPgrupo(){
             processData: false,
             contentType: false,
             success: function(data) {
-                alert('success');
+                alert('Tarea Asignada con Exito');
             }
         });
     });
