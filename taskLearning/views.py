@@ -1,0 +1,40 @@
+from django.core import serializers
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+
+from taskLearning.models import *
+
+class Views:
+
+    def loadTaksGUI(request):
+        obj = Profesor()
+        teacher = obj.getTeacherinSession()
+        return render(request, "createTask.html", {"profesor": teacher})
+
+    @csrf_exempt
+    def getAsignatura(request):
+        if request.method == "POST":
+            obj = profesorxmateria()
+            materias = obj.getMateriaToGrupo(request.POST['idgrupo'],request.POST['denominacion'],request.POST['idprofesor'])
+            return JsonResponse({"materias":materias}, safe=False)
+
+    @csrf_exempt
+    def getTemas(request):
+        if request.method == "POST":
+            materia = request.POST['materia']
+            obj = Materia()
+            data = obj.getContenidos(materia)
+        return JsonResponse({"contenidos": data}, safe=False)
+
+    @csrf_exempt
+    def getContenidos(request):
+        obj = Contenidos()
+        data = obj.getTemas(request.POST['contenido'])
+        return JsonResponse({"temas": data}, safe=False)
+
+    @csrf_exempt
+    def uploadTak(request):
+        obj = AsignarTarea()
+        obj.asignTask(request)
+        return JsonResponse({}, safe=False)

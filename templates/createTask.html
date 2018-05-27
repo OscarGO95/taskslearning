@@ -1,0 +1,230 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+
+</head>
+
+<body class="bg-dark">
+<input type="hidden" value="{{ profesor.id }}" id="idprofesor"/>
+<div class="container">
+    <div class="card card-register mx-auto mt-5">
+        <div class="card-header">Crear Una Tarea - {{ profesor.nombres }} {{ profesor.apellidos }}</div>
+        <div class="card-body">
+            <form id="save_tarea" enctype="multipart/form-data" name="formX" >
+                <div class="form-group">
+                    <label for="tituloTarea">Titulo de la tarea</label>
+                    <input class="form-control" id="tituloTarea" name="titulo_tarea" type="text"
+                           placeholder="Titulo de la tarea" maxlength="50">
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="">Fecha de creacion de la tarea </label>
+                            <input class="form-control" id="inputfechainicio" type="date" name="fecha_creacion">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="FechaFTarea">Fecha limite de Entrega de la tarea </label>
+                            <input class="form-control" id="inputfechafin" type="date" name="fecha_fin">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="InputDescripcion">Descripcion de la Tarea</label>
+                    <textarea cols="4" rows="4" class="form-control" placeholder="Breve descripcion del trabajo"
+                              maxlength="255" name="descripcion_tarea"></textarea>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <label for="exampleInputPassword1">Subir documento</label>
+                            <input type="file" class="form-control" name="fileUpload"/></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="selectGrado">Grados que aplicaran la Tarea </label>
+                            <select class="form-control" id="selectgrado" name="select_grado">
+                                <option disabled="disabled" value="" selected="selected">Seleccione un grado</option>
+                                {% for i in profesor.grupos.all %}
+                                    <option value="{{ i.nombre }}-{{ i.denominacion }}">{{ i.nombre }} {{ i.denominacion }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selectAsignatura">Asignatura</label>
+                            <select class="form-control" id="selectAsignaturaOptions" name="select_asignatura">
+                                <option selected="selected" disabled="disabled" value="">Seleccione una asignatura</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="selectTema">Contenido de la Materia </label>
+                            <select class="form-control" id="selectContenidos" name="select_tema">
+                                <option selected="selected" disabled="disabled" value="">Seleccione un Contenido</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selectLogro">Temas de la Materia</label>
+                            <select class="form-control" id="selectTemas" name="select_logro">
+                                <option selected="selected" disabled="disabled" value="">Seleccione un Tema</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="InputLogro">Logro</label>
+                    <textarea cols="4" rows="4" class="form-control" placeholder="Logros de la Tarea"
+                              maxlength="255" name="logroasignaturatxt"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="selectpublicados">Publicar Para: </label>
+                            <select class="form-control" id="selectpublicados" name="selectpublicado">
+                                <option selected="selected" disabled="disabled" value="">Seleccione publicacion</option>
+                                <option value="1">Todos</option>
+                                <option value="2">Seleccionar</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="btn btn-primary" id="saveformTarea">Guardar Tarea</a>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/createTaks.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/validar.js' %}" type="text/javascript"></script>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Se Encontraron Errores al Enviar los Datos al Servidor.</p>
+                    <div id="data-form-error"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar ventana</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--modal confirm save -->
+    <div class="modal fade" id="confirm-save" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Guardar registro.</p>
+                    <p>Deseas guardar Este registro en el sistema?</p>
+                    <p class="debug-url"></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger btn-ok" id="saveForm">Guardar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modals seleccionar -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalseleccion" tabindex="-1" role="dialog" aria-labelledby="modalseleccion" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Seleccionar Estudiantes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-columns">
+                        <div class="card">
+                            <img class="card-img-top" src="https://1.bp.blogspot.com/-PH2l0APdnQ8/VefDSpUD9BI/AAAAAAAAPkY/EA5Q-zbOVZg/s400/persona.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Fernando Santana</h5>
+                                <input type="checkbox" style="alignment: center">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img class="card-img-top" src="https://1.bp.blogspot.com/-PH2l0APdnQ8/VefDSpUD9BI/AAAAAAAAPkY/EA5Q-zbOVZg/s400/persona.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Fernando Santana</h5>
+                                <input type="checkbox" style="alignment: center">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img class="card-img-top" src="https://1.bp.blogspot.com/-PH2l0APdnQ8/VefDSpUD9BI/AAAAAAAAPkY/EA5Q-zbOVZg/s400/persona.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Fernando Santana</h5>
+                                <input type="checkbox" style="alignment: center">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img class="card-img-top" src="https://1.bp.blogspot.com/-PH2l0APdnQ8/VefDSpUD9BI/AAAAAAAAPkY/EA5Q-zbOVZg/s400/persona.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Fernando Santana</h5>
+                                <input type="checkbox" style="alignment: center">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img class="card-img-top" src="https://1.bp.blogspot.com/-PH2l0APdnQ8/VefDSpUD9BI/AAAAAAAAPkY/EA5Q-zbOVZg/s400/persona.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Fernando Santana</h5>
+                                <input type="checkbox" style="alignment: center">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar Ventana</button>
+                    <button type="button" class="btn btn-primary">Aplicar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>
