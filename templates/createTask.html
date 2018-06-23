@@ -18,27 +18,27 @@
         <div class="card-body">
             <form id="save_tarea" enctype="multipart/form-data" name="formX" >
                 <div class="form-group">
-                    <label for="tituloTarea">Titulo de la tarea</label>
+                    <label for="tituloTarea">Título de la tarea</label>
                     <input class="form-control" id="tituloTarea" name="titulo_tarea" type="text"
-                           placeholder="Titulo de la tarea" maxlength="50">
+                           placeholder="Título de la tarea" maxlength="50">
                 </div>
 
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-6">
-                            <label for="">Fecha de creacion de la tarea </label>
+                            <label for="">Fecha de creación de la tarea </label>
                             <input class="form-control" id="inputfechainicio" type="date" name="fecha_creacion">
                         </div>
                         <div class="col-md-6">
-                            <label for="FechaFTarea">Fecha limite de Entrega de la tarea </label>
+                            <label for="FechaFTarea">Fecha límite de Entrega de la tarea </label>
                             <input class="form-control" id="inputfechafin" type="date" name="fecha_fin">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="InputDescripcion">Descripcion de la Tarea</label>
-                    <textarea cols="4" rows="4" class="form-control" placeholder="Breve descripcion del trabajo"
+                    <label for="InputDescripcion">Descripción de la Tarea</label>
+                    <textarea cols="4" rows="4" class="form-control" placeholder="Breve descripción del trabajo"
                               maxlength="255" name="descripcion_tarea"></textarea>
                 </div>
 
@@ -55,7 +55,7 @@
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-6">
-                            <label for="selectGrado">Grados que aplicaran la Tarea </label>
+                            <label for="selectGrado">Grados que aplicarán la Tarea </label>
                             <select class="form-control" id="selectgrado" name="select_grado">
                                 <option disabled="disabled" value="" selected="selected">Seleccione un grado</option>
                                 {% for i in profesor.grupos.all %}
@@ -75,15 +75,8 @@
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-6">
-                            <label for="selectTema">Contenido de la Materia </label>
+                            <label for="selectTema">Temas de la Materia </label>
                             <select class="form-control" id="selectContenidos" name="select_tema">
-                                <option selected="selected" disabled="disabled" value="">Seleccione un Contenido</option>
-
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="selectLogro">Temas de la Materia</label>
-                            <select class="form-control" id="selectTemas" name="select_logro">
                                 <option selected="selected" disabled="disabled" value="">Seleccione un Tema</option>
 
                             </select>
@@ -103,7 +96,7 @@
                         <div class="col-md-6">
                             <label for="selectpublicados">Publicar Para: </label>
                             <select class="form-control" id="selectpublicados" name="selectpublicado">
-                                <option selected="selected" disabled="disabled" value="">Seleccione publicacion</option>
+                                <option selected="selected" disabled="disabled" value="">Seleccione publicación</option>
                                 <option value="1">Todos</option>
                                 <option value="2">Seleccionar</option>
                             </select>
@@ -139,31 +132,6 @@
             </div>
         </div>
     </div>
-
-    <!--modal confirm save -->
-    <div class="modal fade" id="confirm-save" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-
-                <div class="modal-body">
-                    <p>Guardar registro.</p>
-                    <p>Deseas guardar Este registro en el sistema?</p>
-                    <p class="debug-url"></p>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-danger btn-ok" id="saveForm">Guardar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- modals seleccionar -->
 
     <!-- Modal -->
     <div class="modal fade" id="modalseleccion" tabindex="-1" role="dialog" aria-labelledby="modalseleccion" aria-hidden="true">

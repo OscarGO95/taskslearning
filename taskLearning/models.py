@@ -62,17 +62,10 @@ class Contenidos(models.Model):
 
     def getTemas(self, contenidos):
         temas=[]
-        data = Temas.objects.filter(contenido__nombre=contenidos)
+        data = Contenidos.objects.filter(contenido__nombre=contenidos)
         for i in data:
             temas.append(i.nombre)
         return temas
-
-
-class Temas(models.Model):
-    nombre = models.CharField(max_length=200)
-    bibliografia = models.CharField(max_length=500)
-    contenido = models.ForeignKey('Contenidos', on_delete=models.CASCADE)
-
 
 
 class Tarea(models.Model):#good
@@ -80,7 +73,7 @@ class Tarea(models.Model):#good
     fecha_init = models.DateField(auto_now=False, auto_now_add=False)
     fecha_fin = models.DateField(auto_now=False, auto_now_add=False)
     descripcion = models.CharField(max_length=256)
-    file = models.FileField(upload_to='media/tareas')
+    file = models.FileField(upload_to='media/tareas', blank=True)
 
 
 class AsignarTarea(models.Model):#good
@@ -93,7 +86,10 @@ class AsignarTarea(models.Model):#good
         tarea.fecha_fin = request.POST['fecha_fin']
         tarea.fecha_init = request.POST['fecha_creacion']
         tarea.descripcion = request.POST["descripcion_tarea"]
-        tarea.file = request.FILES['fileUpload']
+        if request.FILES:
+            tarea.file = request.FILES['fileUpload']
+        else:
+            tarea.file = None
         tarea.save()
         quienes = request.POST['selectpublicado']
         if quienes == "1":

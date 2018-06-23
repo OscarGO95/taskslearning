@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'taskLearning.apps.TasklearningConfig',
+    'taskLearning.apps.TasklearningConfig'
+    #'channels'
 ]
 
 MIDDLEWARE = [
@@ -70,6 +71,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'toñoLearning.wsgi.application'
+#ASGI_APPLICATION = "toñoLearning.routing.application"
 
 
 # Database

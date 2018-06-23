@@ -1,5 +1,17 @@
 var id=$('#idprofesor').val();
 $(function(){
+    let fecha = new Date();
+    let mes = (fecha.getMonth()+1).toString();
+    let dia = (fecha.getDate()).toString();
+    if(mes.length <2){
+        mes = "0"+mes;
+    }
+    if(dia.length <2){
+        dia = "0"+dia;
+    }
+    let creacion = $("#inputfechainicio").val(fecha.getFullYear()+"-"+mes+"-"+dia);
+    console.log(creacion.val());
+    let selectPublicar = $("#selectpublicados").val(1);
     cargarMateriasxPgrupo();
 });
 
@@ -29,7 +41,7 @@ function cargarMateriasxPgrupo(){
             let selecttmp = $('#selectContenidos');
             selecttmp.html("")
             let html = "";
-            html+="<option selected='selected' disabled='disabled' value=''>Seleccione un Contenido</option>";
+            html+="<option selected='selected' disabled='disabled' value=''>Seleccione un Tema</option>";
             options.forEach(function (element) {
                 html+="<option value='"+element+"'>"+element+"</option>";
             });
@@ -61,7 +73,7 @@ function cargarMateriasxPgrupo(){
         }
     });
 
-    $('#saveForm').click('on',function () {
+    /*$('#saveformTarea').click('on',function () {
         let formGUI = $('#save_tarea').get(0);
         let form = new FormData(formGUI);
         console.log(form);
@@ -76,6 +88,6 @@ function cargarMateriasxPgrupo(){
                 alert('Tarea Asignada con Exito');
             }
         });
-    });
+    });*/
 }
 

@@ -26,5 +26,6 @@ urlpatterns = [
     path('getasignatura', Views.getAsignatura),
     path('getTemas', Views.getTemas),
     path('getContenidos', Views.getContenidos),
-    path('uploadTask', Views.uploadTak)
+    path('uploadTask', Views.uploadTak),
+    path('verifyTask/<int:id>', Views.verifyTaks)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

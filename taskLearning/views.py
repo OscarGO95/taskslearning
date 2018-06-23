@@ -38,3 +38,7 @@ class Views:
         obj = AsignarTarea()
         obj.asignTask(request)
         return JsonResponse({}, safe=False)
+
+    @csrf_exempt
+    def verifyTaks(request, id):
+        pass

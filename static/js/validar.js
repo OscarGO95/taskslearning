@@ -1,7 +1,8 @@
 var error = [];
-
+var fechaactual= new Date();
 $(function () {
     SendFormTarea();
+    let creacion = $("#inputfechainicio").val();
 });
 
 
@@ -73,14 +74,9 @@ function validatefieldsTextarea(form) {
         	switch (input.attr('name')) {
                 case 'descripcion_tarea':
                     sout = "El campo de la descripcion de la tarea esta vacio";
-                    break;
-
-                case 'logroasignaturatxt':
-                    sout = "Campo de logros de la tarea esta vacio";
+                    error.push(sout);
                     break;
             }
-
-            error.push(sout);
         }
     });
 }
@@ -123,9 +119,28 @@ function validatefieldsSelect(form) {
 
 function SendFormTarea() {
 
+
     $('#saveformTarea').on('click', function (event) {
         event.preventDefault();
         var save_tarea = $('#save_tarea');
+        let creacion = $("#inputfechainicio").val();
+        let final = $("#inputfechafin").val();
+        let s = creacion.split("-");
+        let fechacreacion = new Date(s[0],s[1]-1,s[2]);
+        let s1 = final.split("-");
+        let fechafinal = new Date(s1[0],s1[1]-1,s1[2]);
+        console.log("pico para oscar "+fechaactual.toLocaleDateString());
+        let vectoractual=fechaactual.toLocaleDateString().split('/');
+        let actualsolofecha=new Date(vectoractual[2],vectoractual[1]-1,vectoractual[0]);
+        console.log(actualsolofecha);
+
+        if(fechacreacion.getTime() >= fechafinal.getTime()){
+            error.push("la fecha de finalización debe ser mayor o igual a la fecha de entrega");
+        }
+
+        if(fechacreacion.getTime() < actualsolofecha.getTime()){
+            error.push("la fecha de creación debe ser mayor a la fecha actual");
+        }
 
         validatefieldsInput(save_tarea,"text");
         validatefieldsInput(save_tarea,"date");
@@ -145,13 +160,7 @@ function SendFormTarea() {
             });
         }
         else {
-            $('#confirm-save').modal({
-                show: true
-            });
-
-            $('#saveForm').on('click', function () {
-                location.reload()
-            });
+            //location.reload();
         }
     });
 }
