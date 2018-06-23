@@ -14,7 +14,6 @@ function getcantidadtareas(){
 
 function loadTarea() {
     getcantidadtareas();
-    var fields = "";
     $.get("verifyTasks/"+1, function (data) {
         console.log(data);
 

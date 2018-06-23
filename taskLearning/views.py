@@ -33,6 +33,13 @@ class Views:
         data = obj.getTemas(request.POST['contenido'])
         return JsonResponse({"temas": data}, safe=False)
 
+
+    @csrf_exempt
+    def getStudents(request):
+        obj = Estudiante()
+        data = obj.getStudent(request.POST['nombre'], request.POST['denominacion'])
+        return JsonResponse({"estudiantes": data}, safe=False)
+
     @csrf_exempt
     def uploadTak(request):
         obj = AsignarTarea()

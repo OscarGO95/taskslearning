@@ -30,5 +30,6 @@ urlpatterns = [
     path('verifyTasks/<int:id>', Views.verifyTasks),
     path('dashboardStudent', Views.loadDash),
     path('searchTask', Views.getTask),
-    path('getsizetask/<int:id>', Views.getNumberTask)
+    path('getsizetask/<int:id>', Views.getNumberTask),
+    path('getStudents', Views.getStudents)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

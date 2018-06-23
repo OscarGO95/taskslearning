@@ -1,4 +1,5 @@
 var id=$('#idprofesor').val();
+var estudiantesTarea = [];
 $(function(){
     let fecha = new Date();
     let mes = (fecha.getMonth()+1).toString();
@@ -31,6 +32,27 @@ function cargarMateriasxPgrupo(){
                 html+='<option value='+element+'>'+element+'</option>';
             });
             selecttmp.html(html);
+        });
+        let html="";
+        let container = $("#containerCards");
+
+        $.post('getStudents',{"nombre":datagroup[0], "denominacion":datagroup[1]},function (response) {
+            console.log(response);
+            if(response.estudiantes.length>0){
+                response.estudiantes.forEach(function (element) {
+                html+="<div class='card'>";
+                html+="<img class='card-img-top' src='"+element.imagen+"' alt='Card image cap'>";
+                html+="<div class='card-body'>";
+                html+="<h5 class='card-title'>"+element.nombre+" "+element.apellido+"</h5>";
+                html+="<input name='check' id='"+element.id+"' type='checkbox' style='alignment: center'>";
+                html+="</div>";
+                html+="</div>";
+                });
+            }else{
+                html="<h5>No hay Estudiantes Inscritos</h5>";
+            }
+            container.html(html);
+
         });
     });
 
@@ -73,9 +95,20 @@ function cargarMateriasxPgrupo(){
         }
     });
 
-    /*$('#saveformTarea').click('on',function () {
+    $('#getStudents').click('on',function () {
+        let data = $("input[name=check]");
+        for( let i = 0; i<data.length; i++){
+            if (data[i].checked){
+                estudiantesTarea.push(data[i].id);
+            }
+        }
+
+    });
+
+    $('#saveformTarea').click('on',function () {
         let formGUI = $('#save_tarea').get(0);
         let form = new FormData(formGUI);
+        form.append("estudiantes", estudiantesTarea);
         console.log(form);
         $.ajax({
             url: 'uploadTask',
@@ -88,6 +121,6 @@ function cargarMateriasxPgrupo(){
                 alert('Tarea Asignada con Exito');
             }
         });
-    });*/
+    });
 }
 

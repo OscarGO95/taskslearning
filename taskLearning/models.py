@@ -18,7 +18,7 @@ class Profesor(models.Model):#good
 
 
 class Estudiante(models.Model):#good
-    image = models.FileField(upload_to='media/profileImages')
+    image = models.ImageField(upload_to='media/profileImages')
     documento = models.IntegerField()
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
@@ -28,6 +28,19 @@ class Estudiante(models.Model):#good
     acudiente = models.ForeignKey('Acudiente', on_delete=models.CASCADE)
     grupo = models.ForeignKey('Grupo', on_delete=models.CASCADE)
     tareas = models.ManyToManyField('Tarea', through='AsignarTarea')
+
+    def getStudent(self, grupo, denominacion):
+        response = []
+        data = self.__class__.objects.filter(grupo__denominacion=denominacion, grupo__nombre=grupo)
+        for i in data:
+            tmp = {}
+            tmp["id"] = i.id
+            tmp["documento"] = i.documento
+            tmp["nombre"] = i.nombres
+            tmp["apellido"] = i.apellidos
+            tmp["imagen"] = i.image.url
+            response.append(tmp)
+        return response
 
 
 class Grupo(models.Model):#good
@@ -49,6 +62,7 @@ class Materia(models.Model):#good
     nombre = models.CharField(max_length=50)
 
     def getContenidos(self, materia):
+        j = Materia()
         contenidos=[]
         data = Contenidos.objects.filter(materia__nombre=materia)
         for i in data:
@@ -99,7 +113,11 @@ class AsignarTarea(models.Model):#good
                 obj = AsignarTarea(estudiante=i, tarea=tarea)
                 obj.save()
         else:
-            pass
+            estudiantes = request.POST['estudiantes'].split("-")
+            for i in estudiantes:
+                tmp = Estudiante.objects.get(id=i)
+                obj = AsignarTarea(estudiante=tmp, tarea=tarea)
+                obj.save()
 
     def getSizeTask(self, idx):
         fechahoy = datetime.now().date()
