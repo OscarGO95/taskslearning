@@ -63,7 +63,6 @@ class Materia(models.Model):#good
     nombre = models.CharField(max_length=50)
 
     def getContenidos(self, materia):
-        j = Materia()
         contenidos=[]
         data = Contenidos.objects.filter(materia__nombre=materia)
         for i in data:
