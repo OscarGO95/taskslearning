@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'tasklearning',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'admin',
         'OPTIONS': {
             'sql_mode': 'traditional',
         }
@@ -122,6 +122,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+#gmail conf
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'tasklearning4@gmail.com'
+EMAIL_HOST_PASSWORD = 'task321654987'
+EMAIL_PORT = 587
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

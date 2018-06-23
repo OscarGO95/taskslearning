@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime, timedelta
+from django.core.mail import EmailMessage
 
 class Profesor(models.Model):#good
     documento = models.IntegerField()
@@ -112,12 +113,17 @@ class AsignarTarea(models.Model):#good
             for i in estudiantes:
                 obj = AsignarTarea(estudiante=i, tarea=tarea)
                 obj.save()
+                email = EmailMessage('Tarea '+tarea.nombre+' Asignada', 'Entra al sitio para ver mas detalles', to=[i.correo])
+                email.send()
         else:
             estudiantes = request.POST['estudiantes'].split("-")
             for i in estudiantes:
                 tmp = Estudiante.objects.get(id=i)
                 obj = AsignarTarea(estudiante=tmp, tarea=tarea)
                 obj.save()
+                email = EmailMessage('Tarea ' + tarea.nombre + ' Asignada', 'Entra al sitio para ver mas detalles',
+                                     to=[i.correo])
+                email.send()
 
     def getSizeTask(self, idx):
         fechahoy = datetime.now().date()
