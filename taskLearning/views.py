@@ -1,4 +1,4 @@
-from django.core import serializers
+
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -40,5 +40,21 @@ class Views:
         return JsonResponse({}, safe=False)
 
     @csrf_exempt
-    def verifyTaks(request, id):
-        pass
+    def verifyTasks(request, id):
+        obj = AsignarTarea()
+        tasks = obj.getTasksActive(id)
+        return JsonResponse({"tasks": tasks}, safe=False)
+
+    @csrf_exempt
+    def getTask(request):
+        obj = AsignarTarea()
+        data = obj.getTask(request.POST['id'])
+        return JsonResponse({"task": data}, safe=False)
+
+    def getNumberTask(self,id):
+        obj = AsignarTarea()
+        data = obj.getSizeTask(id)
+        return JsonResponse({"size": data}, safe=False)
+
+    def loadDash(request):
+        return render(request, "dashboard.html")

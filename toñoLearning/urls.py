@@ -27,5 +27,8 @@ urlpatterns = [
     path('getTemas', Views.getTemas),
     path('getContenidos', Views.getContenidos),
     path('uploadTask', Views.uploadTak),
-    path('verifyTask/<int:id>', Views.verifyTaks)
+    path('verifyTasks/<int:id>', Views.verifyTasks),
+    path('dashboardStudent', Views.loadDash),
+    path('searchTask', Views.getTask),
+    path('getsizetask/<int:id>', Views.getNumberTask)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

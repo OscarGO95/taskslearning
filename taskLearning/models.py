@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import datetime, timedelta
 
 class Profesor(models.Model):#good
     documento = models.IntegerField()
@@ -74,6 +74,7 @@ class Tarea(models.Model):#good
     fecha_fin = models.DateField(auto_now=False, auto_now_add=False)
     descripcion = models.CharField(max_length=256)
     file = models.FileField(upload_to='media/tareas', blank=True)
+    activa = models.BooleanField(default=True)
 
 
 class AsignarTarea(models.Model):#good
@@ -100,7 +101,39 @@ class AsignarTarea(models.Model):#good
         else:
             pass
 
+    def getSizeTask(self, idx):
+        fechahoy = datetime.now().date()
+        dias = timedelta(days=2)
+        data = self.__class__.objects.filter(estudiante__id=idx, tarea__activa=1, tarea__fecha_fin__range=[str(fechahoy), str(fechahoy+dias)])
+        return len(data)
 
+    def getTasksActive(self, idx):
+        tasks = []
+        # tarea__activa=1
+        fechahoy = datetime.now().date()
+        dias = timedelta(days=2)
+        data = self.__class__.objects.filter(estudiante__id=idx, tarea__fecha_fin__range=[str(fechahoy), str(fechahoy+dias)]).order_by('estudiante__tareas__fecha_fin')[:2]
+        for i in data:
+            tmp ={}
+            tmp["id"] = i.tarea.id
+            tmp["nombre"] = i.tarea.nombre
+            tmp["descripcion"] = i.tarea.descripcion
+            tmp["fechainicio"] = i.tarea.fecha_init
+            tmp["fechafin"] = i.tarea.fecha_fin
+            tmp["active"] = i.tarea.activa
+            tasks.append(tmp)
+        return tasks
+
+    def getTask(self,id):
+        data = self.__class__.objects.get(tarea__id=id)
+        tmp = {}
+        tmp["id"] = data.tarea.id
+        tmp["nombre"] = data.tarea.nombre
+        tmp["descripcion"] = data.tarea.descripcion
+        tmp["fechainicio"] = data.tarea.fecha_init
+        tmp["fechafin"] = data.tarea.fecha_fin
+        tmp["active"] = data.tarea.activa
+        return tmp
 
 class grupoxprofesor(models.Model):#good
     grupo = models.ForeignKey('Grupo', on_delete=models.CASCADE, related_name='gxp')
