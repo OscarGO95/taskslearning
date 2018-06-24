@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'tasklearning',
         'USER': 'root',
-        'PASSWORD': 'admin',
+        'PASSWORD': '',
         'OPTIONS': {
             'sql_mode': 'traditional',
         }
