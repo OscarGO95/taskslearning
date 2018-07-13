@@ -1,19 +1,32 @@
-<link href="style.css" rel="stylesheet">
-<div class="container">
-    <header class="title">
-        <h3 id="score">Score: </h3>
-    </header>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="script.js"></script>
-</div>
+{% load staticfiles %}
+<!DOCTYPE html>
 
-<div class="container">
-    <section class="overlay">
-        <div class="gameOverGrid">
-            <h3 id="gameOver">You lose!</h3>
-        </div>
-        <button class="gameOverGrid btn">Play</button>
-    </section>
-    <section id="gameBoard"></section>
+<html lang="en">
 
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <link href="{% static 'css/styleSnake.css' %}" rel="stylesheet">
+    <div class="container">
+        <header class="title">
+            <h3 id="score">Score: </h3>
+        </header>
+        <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+        <script src="{% static 'js/scriptSnake.js' %}"></script>
+    </div>
+
+    <div class="container">
+        <section class="overlay">
+            <div class="gameOverGrid">
+                <h3 id="gameOver">You lose!</h3>
+            </div>
+            <button class="gameOverGrid btn">Play</button>
+        </section>
+        <section id="gameBoard"></section>
+
+    </div>
+</body>

@@ -40,13 +40,13 @@ function cargarMateriasxPgrupo(){
             console.log(response);
             if(response.estudiantes.length>0){
                 response.estudiantes.forEach(function (element) {
-                html+="<div class='card'>";
-                html+="<img class='card-img-top' src='"+element.imagen+"' alt='Card image cap'>";
-                html+="<div class='card-body'>";
-                html+="<h5 class='card-title'>"+element.nombre+" "+element.apellido+"</h5>";
-                html+="<input name='check' id='"+element.id+"' type='checkbox' style='alignment: center'>";
-                html+="</div>";
-                html+="</div>";
+                    html+="<div class='card'>";
+                    html+="<img class='card-img-top' src='"+element.imagen+"' alt='Card image cap'>";
+                    html+="<div class='card-body'>";
+                    html+="<h5 class='card-title'>"+element.nombre+" "+element.apellido+"</h5>";
+                    html+="<input name='check' id='"+element.id+"' type='checkbox' style='alignment: center'>";
+                    html+="</div>";
+                    html+="</div>";
                 });
             }else{
                 html="<h5>No hay Estudiantes Inscritos</h5>";
@@ -102,7 +102,6 @@ function cargarMateriasxPgrupo(){
                 estudiantesTarea.push(data[i].id);
             }
         }
-
     });
 
     $('#saveformTarea').click('on',function () {

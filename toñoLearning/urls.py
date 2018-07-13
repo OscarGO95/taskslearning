@@ -29,7 +29,11 @@ urlpatterns = [
     path('uploadTask', Views.uploadTak),
     path('verifyTasks/<int:id>', Views.verifyTasks),
     path('dashboardStudent', Views.loadDash),
+    path('dashboardStudent/games/<int:id>', Views.loadGame),
     path('searchTask', Views.getTask),
     path('getsizetask/<int:id>', Views.getNumberTask),
-    path('getStudents', Views.getStudents)
+    path('getStudents', Views.getStudents),
+    path('asignarjuego', Views.asignGame),
+    path('indexSnake', Views.rutainutil),
+    path('dashboardTeacher/<int:id>', Views.dashboardTeacher)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

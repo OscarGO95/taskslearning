@@ -16,6 +16,10 @@ class Profesor(models.Model):#good
         teacher = self.__class__. objects.get(nombres="John Alexander")
         return teacher
 
+    def getTeacherID(self, id):
+        teacher = self.__class__.objects.get(id=id)
+        print(teacher)
+        return teacher
 
 
 class Estudiante(models.Model):#good
@@ -29,6 +33,12 @@ class Estudiante(models.Model):#good
     acudiente = models.ForeignKey('Acudiente', on_delete=models.CASCADE)
     grupo = models.ForeignKey('Grupo', on_delete=models.CASCADE)
     tareas = models.ManyToManyField('Tarea', through='AsignarTarea')
+    isvisibleGame = models.BooleanField(default=False)
+
+
+    def getStudentID(self, id):
+        return self.__class__.objects.get(id=id)
+
 
     def getStudent(self, grupo, denominacion):
         response = []
@@ -42,6 +52,16 @@ class Estudiante(models.Model):#good
             tmp["imagen"] = i.image.url
             response.append(tmp)
         return response
+
+    def setVisibleGame(self, estudiantes):
+        tmp = estudiantes.split(",")
+        all = self.__class__.objects.all()
+        for i in all:
+            if str(i.id) in tmp:
+                i.isvisibleGame = True
+            else:
+                i.isvisibleGame = False
+            i.save()
 
 
 class Grupo(models.Model):#good

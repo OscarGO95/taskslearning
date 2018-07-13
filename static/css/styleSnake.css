@@ -74,13 +74,9 @@ html {
     align-items: center;
 }
 
-.title {
-    margin-bottom: 15px;
-}
-
 #gameBoard, .row {
     display: flex;
-    flex-flow: row wrap;     
+    flex-flow: row wrap;
 }
 
 #gameBoard {

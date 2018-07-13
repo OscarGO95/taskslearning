@@ -61,7 +61,27 @@ class Views:
     def getNumberTask(self,id):
         obj = AsignarTarea()
         data = obj.getSizeTask(id)
+        print(data.nombres)
         return JsonResponse({"size": data}, safe=False)
 
     def loadDash(request):
         return render(request, "dashboard.html")
+
+    def loadGame(request,id):
+        obj = Estudiante()
+        data = obj.getStudentID(id)
+        return render(request, "game.html", {"estudiante":data})
+
+    def dashboardTeacher(request, id):
+        obj = Profesor()
+        response = obj.getTeacherID(id)
+        return render(request, "dashboardTeacher.html", {"profesor": response})
+
+    @csrf_exempt
+    def asignGame(request):
+        obj = Estudiante()
+        obj.setVisibleGame(request.POST['estudiantes'])
+        return JsonResponse({}, safe=False)
+
+    def rutainutil(request):
+        return render(request, "indexSnake.html")
