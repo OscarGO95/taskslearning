@@ -44,7 +44,7 @@ $(function(){
     $('#asignarGame').click('on', function () {
         let parse= estudiantesSelect.join(",");
         $.post("../asignarjuego",{'estudiantes': parse}, function (response) {
-            console.log(response);
+            alert("El juego es visible ahora para los estudiantes seleccionados");
         });
     });
 });
