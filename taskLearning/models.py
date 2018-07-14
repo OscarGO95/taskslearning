@@ -66,9 +66,8 @@ class Estudiante(models.Model):#good
 
         Se obtienen los estudiantes de la base de datos
         se verifica que sus ids esten contenidos en la lista de estudiantes obtenida por parametro
-        de contenerse se modifica la visibilidad del juego por Verdadera y en caso contrario el la visibilidad
-        se modifica por Falsa
-        se guarda el registro en la base de datos
+        de contenerse se modifica la visibilidad del juego por Verdadera y en caso contrario el la
+        visibilidad se modifica por Falsa se guarda el registro en la base de datos
 
         :return: None
         '''
@@ -101,7 +100,7 @@ class Materia(models.Model):#good
     nombre = models.CharField(max_length=50)
 
     def getContenidos(self, materia):
-        contenidos=[]
+        contenidos = []
         data = Contenidos.objects.filter(materia__nombre=materia)
         for i in data:
             contenidos.append(i.nombre)
@@ -113,7 +112,7 @@ class Contenidos(models.Model):
     materia = models.ForeignKey('Materia', on_delete=models.CASCADE)
 
     def getTemas(self, contenidos):
-        temas=[]
+        temas = []
         data = Contenidos.objects.filter(contenido__nombre=contenidos)
         for i in data:
             temas.append(i.nombre)
@@ -175,7 +174,7 @@ class AsignarTarea(models.Model):#good
         dias = timedelta(days=2)
         data = self.__class__.objects.filter(estudiante__id=idx, tarea__fecha_fin__range=[str(fechahoy), str(fechahoy+dias)]).order_by('estudiante__tareas__fecha_fin')[:2]
         for i in data:
-            tmp ={}
+            tmp = {}
             tmp["id"] = i.tarea.id
             tmp["nombre"] = i.tarea.nombre
             tmp["descripcion"] = i.tarea.descripcion
@@ -185,7 +184,7 @@ class AsignarTarea(models.Model):#good
             tasks.append(tmp)
         return tasks
 
-    def getTask(self,id):
+    def getTask(self, id):
         data = self.__class__.objects.get(tarea__id=id)
         tmp = {}
         tmp["id"] = data.tarea.id
@@ -205,10 +204,9 @@ class profesorxmateria(models.Model):#good
     profesor = models.ForeignKey('Profesor', on_delete=models.CASCADE, related_name='pxm')
     materia = models.ForeignKey('Materia', on_delete=models.CASCADE, related_name='pxm')
 
-    def getMateriaToGrupo(self,idgrupo, denominacion, idp):
+    def getMateriaToGrupo(self, idgrupo, denominacion, idp):
         materias = []
-        materiasprofesor = self.__class__.objects.filter(profesor_id=idp, materia__grupo__denominacion=denominacion,
-                                                           materia__grupo__nombre=idgrupo)
+        materiasprofesor = self.__class__.objects.filter(profesor_id=idp, materia__grupo__denominacion=denominacion, materia__grupo__nombre=idgrupo)
         for i in materiasprofesor:
             materias.append(i.materia.nombre)
 
