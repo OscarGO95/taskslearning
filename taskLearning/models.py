@@ -54,6 +54,17 @@ class Estudiante(models.Model):#good
         return response
 
     def setVisibleGame(self, estudiantes):
+        '''
+        :param estudiantes: Lista de id de estudiantes los cuales podran visualizar el juego (Snake)
+
+        Se obtienen los estudiantes de la base de datos
+        se verifica que sus ids esten contenidos en la lista de estudiantes obtenida por parametro
+        de contenerse se modifica la visibilidad del juego por Verdadera y en caso contrario el la visibilidad
+        se modifica por Falsa
+        se guarda el registro en la base de datos
+
+        :return: None
+        '''
         tmp = estudiantes.split(",")
         all = self.__class__.objects.all()
         for i in all:

@@ -79,6 +79,12 @@ class Views:
 
     @csrf_exempt
     def asignGame(request):
+        '''
+        Se recibe por metodo post la lista de ids de los estudiantes los cuales podran visualizar el juego
+        y se envia a los modelos correspondiente que se encarga de realizar las operaciones respectivas
+
+        :return: Json vacio de confirmacion que es necesario para verificar la correcta actualizacion en la BD
+        '''
         obj = Estudiante()
         obj.setVisibleGame(request.POST['estudiantes'])
         return JsonResponse({}, safe=False)
