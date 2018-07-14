@@ -61,7 +61,6 @@ class Views:
     def getNumberTask(self,id):
         obj = AsignarTarea()
         data = obj.getSizeTask(id)
-        print(data.nombres)
         return JsonResponse({"size": data}, safe=False)
 
     def loadDash(request):
