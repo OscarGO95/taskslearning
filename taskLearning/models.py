@@ -17,6 +17,13 @@ class Profesor(models.Model):#good
         return teacher
 
     def getTeacherID(self, id):
+        '''
+        :param id: id de un profesor a buscar ne la Base de Datos
+
+        se obtiene la informacion del profesor por medio del id y se guarda en la variable teacher
+
+        :return teacher: Queryset con toda la informacion del profesor
+        '''
         teacher = self.__class__.objects.get(id=id)
         print(teacher)
         return teacher

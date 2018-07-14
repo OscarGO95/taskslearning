@@ -73,6 +73,14 @@ class Views:
         return render(request, "game.html", {"estudiante":data})
 
     def dashboardTeacher(request, id):
+        '''
+        :param id: se recibe el id del profesor que esta en ese momento con la sesion iniciada
+
+        se obtiene toda la info del profesor desde el modelo correspondiente
+
+        :return: el render de la vista con el objeto con toda la info del profesor con la sesion iniciada y la vista que debe ser
+        cargada
+        '''
         obj = Profesor()
         response = obj.getTeacherID(id)
         return render(request, "dashboardTeacher.html", {"profesor": response})
@@ -90,4 +98,7 @@ class Views:
         return JsonResponse({}, safe=False)
 
     def rutainutil(request):
+        '''
+        :return: renderiza la vista la cual esta contenida el juego Snake
+        '''
         return render(request, "indexSnake.html")
