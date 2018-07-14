@@ -118,7 +118,6 @@ class Contenidos(models.Model):
             temas.append(i.nombre)
         return temas
 
-
 class Tarea(models.Model):#good
     nombre = models.CharField(max_length=50)
     fecha_init = models.DateField(auto_now=False, auto_now_add=False)
@@ -126,7 +125,6 @@ class Tarea(models.Model):#good
     descripcion = models.CharField(max_length=256)
     file = models.FileField(upload_to='media/tareas', blank=True)
     activa = models.BooleanField(default=True)
-
 
 class AsignarTarea(models.Model):#good
     tarea = models.ForeignKey('Tarea', on_delete=models.CASCADE, related_name='ext')
@@ -199,7 +197,6 @@ class grupoxprofesor(models.Model):#good
     grupo = models.ForeignKey('Grupo', on_delete=models.CASCADE, related_name='gxp')
     profesor = models.ForeignKey('Profesor', on_delete=models.CASCADE, related_name='gxp')
 
-
 class profesorxmateria(models.Model):#good
     profesor = models.ForeignKey('Profesor', on_delete=models.CASCADE, related_name='pxm')
     materia = models.ForeignKey('Materia', on_delete=models.CASCADE, related_name='pxm')
@@ -211,7 +208,6 @@ class profesorxmateria(models.Model):#good
             materias.append(i.materia.nombre)
 
         return materias
-
 
 class materiaxgrupo(models.Model):
     materia = models.ForeignKey('Materia', on_delete=models.CASCADE, related_name='mxg')
