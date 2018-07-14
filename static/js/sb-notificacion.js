@@ -13,7 +13,7 @@ function getcantidadtareas(){
 }
 
 function loadTarea() {
-    getcantidadtareas();
+    //getcantidadtareas();
     $.get("verifyTasks/"+1, function (data) {
         console.log(data);
 
@@ -25,6 +25,7 @@ function loadTarea() {
                 vectid.push(T.getid());
                 vect.push(T);
                 container.append(createtask(T));
+                $("#cant").text(vect.length);
             }else{
                 if(!T.getactivo()){
                     container.html("");
@@ -33,7 +34,6 @@ function loadTarea() {
                 }
             }
         });
-
     });
 }
 
