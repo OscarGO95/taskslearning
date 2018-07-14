@@ -46,3 +46,20 @@ class TaskTest(TestCase):
                                  to=[i.correo])
             email.send()
         self.assertTrue("Enviado")
+
+
+    def  test_juegoactivo(self):
+        estudiante = Estudiante.objects.get(nombres="cristino")
+        if (estudiante.isvisibleGame):
+            self.assertTrue(True)
+        else:
+            self.assertFalse(False)
+
+    def test_cambiarvisibilidad(self):
+        estudiante = Estudiante.objects.get(nombres="cristino")
+        estudiante.isvisibleGame = True
+        self.assertEqual(estudiante.isvisibleGame, True)
+
+
+
+
