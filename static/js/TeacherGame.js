@@ -1,12 +1,16 @@
+//vector que se encargada de almacenar la lista de estudiantes habilitados para el juego
+
 var estudiantesSelect = [];
 
 $(function(){
-
+    // evento del select para detectar un cambio de estado
     $('#selectgrado').change(function() {
+
             var select=$(this).val();
             var datagroup=select.split("-");
             let html="";
         let container = $("#containerCards");
+	    //ajax para llenar el modal con datos que se desplega con los estudiants y con la imagen que pertenece
             $.post('../getStudents',{"nombre":datagroup[0], "denominacion":datagroup[1]},function (response) {
             if(response.estudiantes.length>0){
                 response.estudiantes.forEach(function (element) {
@@ -21,6 +25,8 @@ $(function(){
             }else{
                 html="<h5>No hay Estudiantes Inscritos</h5>";
             }
+	    
+            //levantar el modal
             container.html(html);
             $('#modalseleccion').modal({
                 show: true

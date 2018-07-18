@@ -1,3 +1,6 @@
+//codigo js para logica del juego de snake...defimimos el tamano del tablero, los puntos que se acumulan y la 
+//velocidad del snake
+
 var gameBoardSize = 40;
 var gamePoints = 0;
 var gameSpeed = 100;
@@ -22,6 +25,8 @@ var Food = {
     present: false
 }
 
+//despliegue del board donde se usara para el juego y se despliega la matriz
+
 function createBoard() {
     $("#gameBoard").empty();
     var size = gameBoardSize;
@@ -34,6 +39,7 @@ function createBoard() {
     }
 }
 
+//movimientos y controles del snake
 function moveSnake() {
   var head = Snake.position[0].slice();
 
@@ -83,6 +89,8 @@ function moveSnake() {
 }
 
 
+//generar el alimento del snake aleatoriamente dentro de los limites de la matriz de la pantalla
+
 function generateFood() {
     if (Food.present === false) {
         Food.position = [Math.floor((Math.random()*40) + 1), Math.floor((Math.random()*40) + 1)]
@@ -92,6 +100,7 @@ function generateFood() {
     }
 }
 
+//capturar eventos del teclado para el movimiento del snake
 function keyPress() {
     $(document).one("keydown", function(key) {
         switch(key.which) {
