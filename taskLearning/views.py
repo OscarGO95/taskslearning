@@ -64,9 +64,18 @@ class Views:
         return JsonResponse({"size": data}, safe=False)
 
     def loadDash(request):
+        '''
+        Renderiza el dashboard Inicial para el estudiante
+        :return: render de la vista
+        '''
         return render(request, "dashboard.html")
 
     def loadGame(request,id):
+        '''
+        Carga la vista con el juego del Snake para el estudiante con el id que llega por parametro
+        :param id: id del estudainte
+        :return: render de la vista con el objeto estudiante especifico
+        '''
         obj = Estudiante()
         data = obj.getStudentID(id)
         return render(request, "game.html", {"estudiante":data})
